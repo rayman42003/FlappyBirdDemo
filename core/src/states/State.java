@@ -19,4 +19,5 @@ public abstract class State {
 	protected abstract void handleInput();
 	public abstract void update(float delta);
 	public abstract void render(SpriteBatch batch);
+	public abstract void dispose();
 }
