@@ -16,11 +16,17 @@ public class Bird {
 		texture = new Texture("bird.png");
 	}
 	
+	public void jump() {
+		velocity.y = 250;
+	}
+	
 	public void update(float delta) {
 		velocity.add(0, GRAVITY, 0);
 		velocity.scl(delta);
 		position.add(0, velocity.y, 0);
 		velocity.scl(1/delta);
+		if(position.y < 0)
+			position.y =0;
 	}
 
 	public Texture getTexture() {
