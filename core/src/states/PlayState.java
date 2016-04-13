@@ -4,12 +4,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.changrichmond.game.FlappyDemo;
 
+import gameobjects.Bird;
+
 public class PlayState extends State {
-	private Texture bird;
+	private Bird bird;
 	
 	public PlayState(GameStateManager gsm) {
 		super(gsm);
-		bird = new Texture("bird.png");
+		bird = new Bird(50, 300);
 		cam.setToOrtho(false, FlappyDemo.WIDTH/2, FlappyDemo.HEIGHT/2);
 	}
 
@@ -21,7 +23,8 @@ public class PlayState extends State {
 
 	@Override
 	public void update(float delta) {
-		// TODO Auto-generated method stub
+		handleInput();
+		bird.update(delta);
 		
 	}
 
@@ -29,7 +32,7 @@ public class PlayState extends State {
 	public void render(SpriteBatch batch) {
 		batch.setProjectionMatrix(cam.combined);
 		batch.begin();
-		batch.draw(bird, 50,  50);
+		batch.draw(bird.getTexture(), bird.getPosition().x, bird.getPosition().y);
 		batch.end();
 	}
 
