@@ -3,6 +3,7 @@ package gameobjects;
 import java.util.Random;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Tube {
@@ -12,41 +13,55 @@ public class Tube {
 	private static final int TOP_TUBE_MIN_HEIGHT = 120;
 		
 	private Texture topTube;
-	private Texture bottomTube;
+	private Texture botTube;
 	
-	private Vector2 posTopTube;
-	private Vector2 posBotTube;
+	private Vector2 topPos;
+	private Vector2 botPos;
+	
+	private Rectangle topBounds;
+	private Rectangle botBounds;
 	
 	private Random rand;
 	
 	public Tube(float x) {
 		topTube = new Texture("toptube.png");
-		bottomTube = new Texture("bottomtube.png");
+		botTube = new Texture("bottomtube.png");
 		
 		rand = new Random();
-		posTopTube = new Vector2(x, rand.nextInt(VARIANCE) + TUBE_GAP + TOP_TUBE_MIN_HEIGHT);
-		posBotTube = new Vector2(x, posTopTube.y - TUBE_GAP - bottomTube.getHeight());
+		topPos = new Vector2(x, rand.nextInt(VARIANCE) + TUBE_GAP + TOP_TUBE_MIN_HEIGHT);
+		botPos = new Vector2(x, topPos.y - TUBE_GAP - botTube.getHeight());
+		
+		topBounds = new Rectangle(topPos.x, topPos.y, topTube.getWidth(), topTube.getHeight());
+		botBounds = new Rectangle(botPos.x, botPos.y, botTube.getWidth(), botTube.getHeight());
 	}
 	
 	public void reposition(float x) {
-		posTopTube.set(x, rand.nextInt(VARIANCE) + TUBE_GAP + TOP_TUBE_MIN_HEIGHT);
-		posBotTube.set(x, posTopTube.y - TUBE_GAP - bottomTube.getHeight());
+		topPos.set(x, rand.nextInt(VARIANCE) + TUBE_GAP + TOP_TUBE_MIN_HEIGHT);
+		botPos.set(x, topPos.y - TUBE_GAP - botTube.getHeight());
+		
+		topBounds.setPosition(topPos.x, topPos.y);
+		botBounds.setPosition(botPos.x, botPos.y);
 	}
-
+	
+	public boolean collides(Rectangle rect)
+	{
+		return rect.overlaps(topBounds) || rect.overlaps(botBounds);
+	}
+	
 	public Texture getTopTube() {
 		return topTube;
 	}
 
 	public Texture getBottomTube() {
-		return bottomTube;
+		return botTube;
 	}
 
 	public Vector2 getPosTopTube() {
-		return posTopTube;
+		return topPos;
 	}
 
 	public Vector2 getPosBotTube() {
-		return posBotTube;
+		return botPos;
 	}
 	
 }

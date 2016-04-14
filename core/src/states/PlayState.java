@@ -42,8 +42,13 @@ public class PlayState extends State {
 		cam.position.x = bird.getPosition().x + 80;
 		
 		for(Tube tube : tubes)
+		{
 			if(cam.position.x - cam.viewportWidth / 2 > tube.getPosBotTube().x + tube.getTopTube().getWidth())
 				tube.reposition(tube.getPosTopTube().x + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
+			if(tube.collides(bird.getBounds())) {
+				gsm.set(new PlayState(gsm));
+			}
+		}
 		
 		cam.update();
 	}

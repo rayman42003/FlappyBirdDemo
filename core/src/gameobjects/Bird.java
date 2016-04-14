@@ -1,6 +1,7 @@
 package gameobjects;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
 public class Bird {
@@ -9,12 +10,15 @@ public class Bird {
 	private Texture texture;
 	private Vector3 position;
 	private Vector3 velocity;
+	private Rectangle bounds;
 	
 	public Bird(int x, int y)
 	{
 		position = new Vector3(x, y, 0);
 		velocity = new Vector3();
 		texture = new Texture("bird.png");
+		
+		bounds = new Rectangle(position.x, position.y, texture.getWidth(), texture.getHeight());
 	}
 	
 	public void jump() {
@@ -28,6 +32,7 @@ public class Bird {
 		velocity.scl(1/delta);
 		if(position.y < 0)
 			position.y =0;
+		bounds.setPosition(position.x, position.y);
 	}
 
 	public Texture getTexture() {
@@ -36,5 +41,9 @@ public class Bird {
 
 	public Vector3 getPosition() {
 		return position;
+	}
+	
+	public Rectangle getBounds() {
+		return bounds;
 	}
 }
