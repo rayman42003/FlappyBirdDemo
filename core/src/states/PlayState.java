@@ -25,7 +25,7 @@ public class PlayState extends State {
 		bg = new Texture("bg.png");
 		
 		tubes = new Array<Tube>();
-		for(int i = 0; i < TUBE_COUNT; i++)
+		for(int i = 1; i <= TUBE_COUNT; i++)
 			tubes.add(new Tube(i *(TUBE_SPACING + Tube.TUBE_WIDTH)));
 	}
 
